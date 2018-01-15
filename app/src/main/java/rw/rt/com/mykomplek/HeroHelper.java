@@ -13,14 +13,7 @@ public class HeroHelper {
 
     public static final String EMAIL_USER = "email";
     public static final String PASSWORD_USER = "password";
-    public static final String NAMA_USER = "nama_user";
-    public static final String DATEBIRTH = "tanggal_lahir";
-
-    public static final String NAMA_TAMU = "nama";
-    public static final String ID_TAMU = "id_tamu";
-    public static final String EMAIL_TAMU = "email";
-    public static final String KOMENTAR_TAMU = "komentar";
-    public static final String TANGGAL_TAMU = "tanggal";
+    public static final String ID_GROUP = "id_group";
 
 
     //ini method validasi EditText

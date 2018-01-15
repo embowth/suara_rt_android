@@ -1,6 +1,7 @@
 package rw.rt.com.mykomplek;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -10,19 +11,27 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class MenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     ImageButton btnPemilihan, btnLayanan, btnInfo, btnDarurat;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mToggle;
+
+    RelativeLayout mRelativeLayout;
+    TextView txtNama;
 
     DatabaseHelper mDatabaseHelper;
 
@@ -41,6 +50,7 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView mNavigationView = (NavigationView)findViewById(R.id.navigationView);
         mNavigationView.setNavigationItemSelectedListener(this);
+        View header=mNavigationView.getHeaderView(0);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -48,6 +58,9 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
         btnLayanan = (ImageButton)findViewById(R.id.BtnLayanan);
         btnInfo = (ImageButton)findViewById(R.id.BtnInfo);
         btnDarurat = (ImageButton)findViewById(R.id.BtnDarurat);
+
+        txtNama = (TextView)header.findViewById(R.id.headerNavName);
+        navUsername();
 
         btnPemilihan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +90,15 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+    }
+
+    public void navUsername() {
+        Cursor data = mDatabaseHelper.getData();
+        data.moveToFirst();
+
+        if (data.getCount() > 0) {
+            txtNama.setText(data.getString(data.getColumnIndex("nama")));
+        }
     }
 
     public void userLogout(){
