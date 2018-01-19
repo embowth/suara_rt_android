@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -89,6 +90,10 @@ public class DaruratActivity extends AppCompatActivity {
                                 params.topMargin = 30;
                                 button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 button.setText(objData.getString("nama_kontak") + " : " + objData.getString("telp"));
+
+                                int drawId = getResources().getIdentifier(objData.getString("icon"),"mipmap",getPackageName());
+                                Drawable top = getResources().getDrawable(drawId);
+                                button.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
 
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
