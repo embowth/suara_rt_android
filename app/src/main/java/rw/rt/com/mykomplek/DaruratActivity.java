@@ -40,7 +40,9 @@ public class DaruratActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_darurat);
 
-         linLayout= (LinearLayout) findViewById(R.id.daruratLinearLayout);
+        getSupportActionBar().setTitle("Nomor Darurat");
+
+        linLayout= (LinearLayout) findViewById(R.id.daruratLinearLayout);
 
         mDatabaseHelper = new DatabaseHelper(this);
         Cursor data = mDatabaseHelper.getData();
@@ -81,7 +83,9 @@ public class DaruratActivity extends AppCompatActivity {
                             JSONObject objData;
 
                             ArrayList<Button> listButtons = new ArrayList<>();
-
+                            int drawId;
+                            Drawable top;
+                            String ic;
                             for(int i=0;i < jsonData.length();i++){
                                 objData = jsonData.getJSONObject(i);
                                 final String telp = objData.getString("telp");
@@ -91,9 +95,13 @@ public class DaruratActivity extends AppCompatActivity {
                                 button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 button.setText(objData.getString("nama_kontak") + " : " + objData.getString("telp"));
 
-                                int drawId = getResources().getIdentifier(objData.getString("icon"),"mipmap",getPackageName());
-                                Drawable top = getResources().getDrawable(drawId);
-                                button.setCompoundDrawablesWithIntrinsicBounds(null, top , null, null);
+                                ic = objData.getString("icon");
+                                System.out.println(ic);
+                                if(!ic.equals("null")) {
+                                    drawId = getResources().getIdentifier(objData.getString("icon"), "mipmap", getPackageName());
+                                    top = getResources().getDrawable(drawId);
+                                    button.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+                                }
 
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override

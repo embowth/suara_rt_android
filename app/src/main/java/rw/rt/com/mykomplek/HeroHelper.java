@@ -1,6 +1,7 @@
 package rw.rt.com.mykomplek;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -42,7 +43,7 @@ public class HeroHelper {
     public static void pre(String pesan) {
         try {
             if (DEBUG == 1) {
-                System.out.println(pesan);
+                Log.e("Message",pesan);
             }
         } catch (Exception e) {
             e.printStackTrace();
