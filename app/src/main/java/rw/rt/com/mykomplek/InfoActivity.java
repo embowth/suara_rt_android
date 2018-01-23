@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -47,7 +48,7 @@ public class InfoActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Informasi Warga");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_black_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_white_24dp);
 
         linLayout = (LinearLayout) findViewById(R.id.infoLinearLayout);
 
@@ -117,7 +118,7 @@ public class InfoActivity extends AppCompatActivity {
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-
+                                        startActivity(new Intent(InfoActivity.this,ListInfoActivity.class));
                                     }
                                 });
 
@@ -143,7 +144,17 @@ public class InfoActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         finish();
-        return true;
+        return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
     }
 }

@@ -40,6 +40,11 @@
         <activity android:name=".DaruratActivity">
         </activity>
 
+        <activity android:name=".ListInfoActivity">
+        </activity>
+
+        <activity android:name=".addInfoActivity">
+        </activity>
     </application>
 
 </manifest>
