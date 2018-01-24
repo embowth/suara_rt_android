@@ -3,4 +3,6 @@
     <string name="open">Open</string>
     <string name="close">Close</string>
     <string name="addThread">Tambah Informasi Baru</string>
+    <string name="emptyJudulInformasi">Judul Informasi wajib diisi minimal 5 karakter</string>
+    <string name="emptyKontenInformasi">Konten informasi wajib diisi minimal 10 karakter</string>
 </resources>

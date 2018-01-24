@@ -115,10 +115,15 @@ public class InfoActivity extends AppCompatActivity {
                                     button.setCompoundDrawablesWithIntrinsicBounds(icon_btn, null, null, null);
                                 }
 
+                                final String category = objData.getString("id_category");
+                                final String nama_category = objData.getString("nama_category");
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        startActivity(new Intent(InfoActivity.this,ListInfoActivity.class));
+                                        Intent i = new Intent(InfoActivity.this,ListInfoActivity.class);
+                                        i.putExtra("category", category);
+                                        i.putExtra("nama_category", nama_category);
+                                        startActivity(i);
                                     }
                                 });
 

@@ -13,6 +13,8 @@ import android.view.MenuItem;
 
 public class ListInfoActivity extends AppCompatActivity {
 
+    String extraCategory, extraNamaCategory;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,13 +24,32 @@ public class ListInfoActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_white_24dp);
+
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras == null) {
+                extraCategory= "";
+                extraNamaCategory = "";
+            } else {
+                extraCategory= extras.getString("category");
+                extraNamaCategory= extras.getString("nama_category");
+            }
+        } else {
+            extraCategory= (String) savedInstanceState.getSerializable("category");
+            extraNamaCategory= (String) savedInstanceState.getSerializable("nama_category");
+        }
+
+        System.out.println(extraCategory);
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
         int id = item.getItemId();
 
         if(id == R.id.action_add_thread){
-            startActivity(new Intent(ListInfoActivity.this,addInfoActivity.class));
+            Intent i = new Intent(ListInfoActivity.this,addInfoActivity.class);
+            i.putExtra("category", extraCategory);
+            i.putExtra("nama_category", extraNamaCategory);
+            startActivity(i);
         }else{
             finish();
         }
