@@ -45,6 +45,10 @@
 
         <activity android:name=".addInfoActivity">
         </activity>
+
+        <activity android:name=".DetailInfoActivity">
+        </activity>
+
     </application>
 
 </manifest>

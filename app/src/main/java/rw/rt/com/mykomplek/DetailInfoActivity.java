@@ -2,17 +2,14 @@ package rw.rt.com.mykomplek;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -21,6 +18,7 @@ import com.androidquery.callback.AjaxStatus;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,68 +26,52 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by embowth on 22/01/2018.
+ * Created by embowth on 27/01/2018.
  */
 
-public class ListInfoActivity extends AppCompatActivity {
+public class DetailInfoActivity extends AppCompatActivity {
 
-    String extraCategory, extraNamaCategory;
-    TextView kategori;
+    private ListView lvDetail;
+    private InformasiDetailAdapter adapter;
+    private List<ItemDetailInformasi> mDetailItem;
 
-    private ListView lvInformasi;
-    private InformasiListAdapter adapter;
-    private List<ItemListInformasi> mInformasiList;
+    String id_thread;
 
-    DatabaseHelper mDatabaseHelper;
     AQuery aq;
 
-    String pKategori,pGroup;
+    TextView txtJudul;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_listinfo);
+        setContentView(R.layout.activity_detail_info);
 
         getSupportActionBar().setTitle("Informasi Warga");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_white_24dp);
 
+        txtJudul = (TextView)findViewById(R.id.txtJudulInfo);
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                extraCategory= "";
-                extraNamaCategory = "";
+                id_thread= "";
             } else {
-                extraCategory= extras.getString("category");
-                extraNamaCategory= extras.getString("nama_category");
+                id_thread= extras.getString("thread_id");
             }
         } else {
-            extraCategory= (String) savedInstanceState.getSerializable("category");
-            extraNamaCategory= (String) savedInstanceState.getSerializable("nama_category");
+            id_thread = (String) savedInstanceState.getSerializable("thread_id");
         }
 
-        kategori = (TextView)findViewById(R.id.txtKategori);
-        kategori.setText(extraNamaCategory);
-
-        mDatabaseHelper = new DatabaseHelper(this);
-        Cursor data = mDatabaseHelper.getData();
-        data.moveToFirst();
-
-        if (data.getCount() > 0) {
-            pGroup = data.getString(data.getColumnIndex("id_group"));
-        }
-
-        getListInformasi();
-
+        getListDetail();
     }
 
-    public void getListInformasi(){
-        String url = HeroHelper.BASE_URL + "get_list_thread.php";
+    public void getListDetail(){
+        String url = HeroHelper.BASE_URL + "get_detail_thread.php";
 
         Map<String, String> param = new HashMap<>();
-        param.put("group", this.pGroup);
-        param.put("category",this.extraCategory);
+        param.put("id_thread", this.id_thread);
 
         ProgressDialog pdialog = new ProgressDialog(getApplicationContext());
         pdialog.setCancelable(true);
@@ -109,30 +91,31 @@ public class ListInfoActivity extends AppCompatActivity {
                         //memanggil JSON Object
                         String result = jsonObject.getString("success");
                         String pesan = jsonObject.getString("message");
+                        String judul = jsonObject.getString("judul");
                         if (result.equalsIgnoreCase("true")){
 
-                            lvInformasi = (ListView)findViewById(R.id.listViewInfo);
+                            txtJudul.setText(judul);
 
-                            mInformasiList = new ArrayList<>();
+                            lvDetail = (ListView)findViewById(R.id.listViewDetail);
 
-                            JSONArray jsonData = jsonObject.getJSONArray("listinfo");
+                            mDetailItem = new ArrayList<>();
+
+                            JSONArray jsonData = jsonObject.getJSONArray("details");
                             JSONObject objData;
 
                             for(int i=0;i < jsonData.length();i++){
                                 objData = jsonData.getJSONObject(i);
-                                mInformasiList.add(new ItemListInformasi(Integer.parseInt(objData.getString("id_thread")),objData.getString("judul"),objData.getString("sender"),objData.getString("tanggal_post")));
+                                mDetailItem.add(new ItemDetailInformasi(Integer.parseInt(objData.getString("id_content")),"#"+ (i+1) + " " +objData.getString("sender")+ " / " + objData.getString("tanggal_post"),objData.getString("content")));
                             }
 
-                            adapter = new InformasiListAdapter(getApplicationContext(),mInformasiList);
-                            lvInformasi.setAdapter(adapter);
+                            adapter = new InformasiDetailAdapter(getApplicationContext(),mDetailItem);
+                            lvDetail.setAdapter(adapter);
 
-                            lvInformasi.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            lvDetail.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //do something..
-                                    Intent i = new Intent(ListInfoActivity.this,DetailInfoActivity.class);
-                                    i.putExtra("thread_id",view.getTag().toString());
-                                    startActivity(i);
+
                                 }
                             });
 
@@ -150,32 +133,13 @@ public class ListInfoActivity extends AppCompatActivity {
         });
     }
 
-
     public boolean onOptionsItemSelected(MenuItem item){
-        int id = item.getItemId();
-
-        if(id == R.id.action_add_thread){
-            Intent i = new Intent(ListInfoActivity.this,addInfoActivity.class);
-            i.putExtra("category", extraCategory);
-            i.putExtra("nama_category", extraNamaCategory);
-            startActivity(i);
-        }else{
-            finish();
-        }
-        return true;
-
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_thread_menu, menu);
+        finish();
         return true;
     }
 
     @Override
     protected void onResume() {
-        getListInformasi();
         super.onResume();
     }
 

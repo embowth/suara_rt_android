@@ -141,9 +141,13 @@ public class addInfoActivity extends AppCompatActivity {
                         //memanggil JSON Object
                         String result = jsonObject.getString("success");
                         String pesan = jsonObject.getString("message");
+                        String id_thread = jsonObject.getString("id_thread");
                         if (result.equalsIgnoreCase("true")){
 
                             HeroHelper.pesan(getApplicationContext(), pesan);
+                            Intent i = new Intent(addInfoActivity.this,DetailInfoActivity.class);
+                            i.putExtra("thread_id",id_thread);
+                            startActivity(i);
                             finish();
 
                         }else {
