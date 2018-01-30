@@ -3,131 +3,116 @@ package rw.rt.com.mykomplek;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by embowth on 22/01/2018.
+ * Created by embowth on 29/01/2018.
  */
 
-public class addInfoActivity extends AppCompatActivity {
+public class ReplyInfoActivity extends AppCompatActivity {
 
-    EditText txtJudul, txtKonten;
+    EditText txtComment;
     Button btnSave;
-    TextView errorJudul, errorKonten, txtCategory;
-    String group,user;
+    TextView tJudulComment,errorComment;
 
     DatabaseHelper mDatabaseHelper;
     AQuery aq;
 
-    String extraCategory, extraNamaCategory;
-
+    String id_thread,judul,user;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.addinfo_activity);
+        setContentView(R.layout.reply_info_activity);
 
         mDatabaseHelper = new DatabaseHelper(this);
 
-        getSupportActionBar().setTitle("Buat Informasi Baru");
+        getSupportActionBar().setTitle("Tulis Komentar");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_white_24dp);
 
-        txtJudul = (EditText)findViewById(R.id.txtJudulThread);
-        txtKonten = (EditText)findViewById(R.id.txtContentThread);
-        btnSave = (Button)findViewById(R.id.btnSaveInformasi);
-        errorJudul = (TextView)findViewById(R.id.txtErrorJudul);
-        errorKonten = (TextView)findViewById(R.id.txtErrorKonten);
-        txtCategory = (TextView)findViewById(R.id.txtKategori);
+        txtComment = (EditText)findViewById(R.id.txtComment);
+        btnSave = (Button)findViewById(R.id.btnSaveComment);
+        tJudulComment = (TextView)findViewById(R.id.txtJudulComment);
+        errorComment = (TextView)findViewById(R.id.txtErrorComment);
 
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
-                extraCategory= "";
-                extraNamaCategory = "";
+                id_thread= "";
+                judul="";
             } else {
-                extraCategory= extras.getString("category");
-                extraNamaCategory= extras.getString("nama_category");
+                id_thread= extras.getString("id_thread");
+                judul= extras.getString("judul");
             }
         } else {
-            extraCategory= (String) savedInstanceState.getSerializable("category");
-            extraNamaCategory= (String) savedInstanceState.getSerializable("nama_category");
+            id_thread = (String) savedInstanceState.getSerializable("id_thread");
+            judul = (String) savedInstanceState.getSerializable("judul");
         }
 
-        txtCategory.setText(extraNamaCategory);
-
-        Cursor data = mDatabaseHelper.getData();
-        data.moveToFirst();
-
-        if (data.getCount() > 0) {
-            group = data.getString(data.getColumnIndex("id_group"));
-            user = data.getString(data.getColumnIndex("id_user"));
-        }
+        tJudulComment.setText(judul);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveNewThread();
+                saveComment();
             }
         });
+
     }
 
-    private void saveNewThread(){
+    private void saveComment(){
 
-        String judul = txtJudul.getText().toString();
-        String konten = txtKonten.getText().toString();
+       String comm = txtComment.getText().toString();
 
-        if(judul.isEmpty() || judul.equals("") || judul.length() < 5){
-            errorJudul.setText(R.string.emptyJudulInformasi);
-        }else if(konten.isEmpty() || konten.equals("") || konten.length() < 5){
-            errorKonten.setText(R.string.emptyKontenInformasi);
+
+        if(comm.isEmpty() || comm.equals("") || comm.length() < 5){
+            errorComment.setText(R.string.emptyKontenKomentar);
         }else{
-            //errorJudul.setText("");
-            //errorKonten.setText("");
-            insertNewThread(judul,konten);
+
+            Cursor data = mDatabaseHelper.getData();
+            data.moveToFirst();
+
+            if (data.getCount() > 0) {
+                user = data.getString(data.getColumnIndex("id_user"));
+            }
+            insertComment(comm,user);
         }
 
     }
 
-    private void insertNewThread(String pJudul, String pKonten){
-        String url = HeroHelper.BASE_URL + "save_new_thread.php";
+    private void insertComment(String comment, String user){
+        String url = HeroHelper.BASE_URL + "save_thread_comment.php";
 
         Map<String, String> param = new HashMap<>();
-        param.put("judul", pJudul);
-        param.put("konten", pKonten);
-        param.put("group", this.group);
-        param.put("category",this.extraCategory);
-        param.put("user",this.user);
+        param.put("comment", comment);
+        param.put("user", user);
+        param.put("thread", id_thread);
 
-        ProgressDialog pdialog = new ProgressDialog(addInfoActivity.this);
+
+        ProgressDialog pdialog = new ProgressDialog(ReplyInfoActivity.this);
         pdialog.setCancelable(true);
         pdialog.setMessage("Loading . . .");
 
-        aq = new AQuery(addInfoActivity.this);
+        aq = new AQuery(ReplyInfoActivity.this);
 
         aq.progress(pdialog).ajax(url, param, String.class, new AjaxCallback<String>() {
             @Override
@@ -141,15 +126,8 @@ public class addInfoActivity extends AppCompatActivity {
                         //memanggil JSON Object
                         String result = jsonObject.getString("success");
                         String pesan = jsonObject.getString("message");
-                        String id_thread = jsonObject.getString("id_thread");
                         if (result.equalsIgnoreCase("true")){
-
-                            HeroHelper.pesan(getApplicationContext(), pesan);
-                            Intent i = new Intent(addInfoActivity.this,DetailInfoActivity.class);
-                            i.putExtra("thread_id",id_thread);
-                            startActivity(i);
                             finish();
-
                         }else {
                             HeroHelper.pesan(getApplicationContext(), pesan);
                         }
@@ -163,10 +141,11 @@ public class addInfoActivity extends AppCompatActivity {
         });
     }
 
+
     public boolean onOptionsItemSelected(MenuItem item){
 
         finish();
-        return super.onOptionsItemSelected(item);
+        return true;
 
     }
 

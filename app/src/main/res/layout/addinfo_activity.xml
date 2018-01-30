@@ -54,7 +54,8 @@
             android:hint="Informasi"
             android:inputType="text|textMultiLine"
             android:lines="10"
-            android:singleLine="false" />
+            android:singleLine="false"
+            android:gravity="top"/>
 
         <TextView
             android:id="@+id/txtErrorKonten"
@@ -78,7 +79,8 @@
             android:paddingLeft="20dp"
             android:text="Simpan"
             android:textColor="@android:color/white"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            />
 
     </LinearLayout>
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -134,12 +135,30 @@ public class DetailInfoActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        finish();
+        int id = item.getItemId();
+
+        if(id == R.id.action_reply_thread){
+            Intent i = new Intent(DetailInfoActivity.this,ReplyInfoActivity.class);
+            i.putExtra("id_thread", id_thread);
+            i.putExtra("judul", txtJudul.getText().toString());
+            startActivity(i);
+        }else{
+            finish();
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.reply_thread_menu, menu);
         return true;
     }
 
     @Override
     protected void onResume() {
+
+        getListDetail();
         super.onResume();
     }
 
