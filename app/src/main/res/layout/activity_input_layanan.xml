@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Nama"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/txtNamaLengkap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nama Lengkap"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Nomor KTP"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/txtNik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Nomor KTP"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Keperluan"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerKeperluan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Keperluan"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/txtKeperluan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:height="150dp"
+            android:ems="10"
+            android:gravity="top"
+            android:hint="Keperluan"
+            android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/btnSaveLayanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gradient2"
+            android:drawableLeft="@mipmap/ic_save_white_24dp"
+            android:drawablePadding="-40dp"
+            android:paddingLeft="20dp"
+            android:text="Kirim"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+
+</ScrollView>
