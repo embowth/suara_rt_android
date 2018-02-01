@@ -45,6 +45,70 @@
             android:inputType="number" />
 
         <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Tempat Lahir"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/txtTempatLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Tempat Lahir"
+            android:inputType="text" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Tanggal Lahir"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <EditText
+            android:id="@+id/txtTanggalLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:ems="10"
+            android:focusable="false"
+            android:hint="Tanggal Lahir"
+            android:inputType="none" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Jenis Kelamin"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerJenisKelamin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Status"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <Spinner
+            android:id="@+id/spinnerStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,12 +127,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Keperluan"
+            android:text="Detail Keperluan"
             android:textSize="16sp"
             android:paddingLeft="4dp"/>
 
         <EditText
-            android:id="@+id/txtKeperluan"
+            android:id="@+id/txtDetKeperluan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="150dp"
@@ -92,6 +156,7 @@
             android:text="Kirim"
             android:textColor="@android:color/white"
             android:textSize="18sp" />
+
 
     </LinearLayout>
 
