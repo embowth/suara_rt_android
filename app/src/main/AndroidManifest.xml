@@ -54,6 +54,9 @@
 
         <activity android:name=".LayananListActivity">
         </activity>
+
+        <activity android:name=".LayananDetailActivity">
+        </activity>
     </application>
 
 </manifest>

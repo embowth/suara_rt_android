@@ -116,14 +116,14 @@ public class LayananListActivity extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     //do something..
-                                    //Intent i = new Intent(LayananListActivity.this,DetailInfoActivity.class);
-                                    //i.putExtra("thread_id",view.getTag().toString());
-                                    //startActivity(i);
+                                    Intent i = new Intent(LayananListActivity.this,LayananDetailActivity.class);
+                                    i.putExtra("id_layanan",view.getTag().toString());
+                                    startActivity(i);
                                 }
                             });
 
                         }else {
-                            HeroHelper.pesan(getApplicationContext(), "Tidak ditemukan informasi pada kategori ini");
+                            HeroHelper.pesan(getApplicationContext(), pesan);
 
                         }
                     }catch (JSONException e){

@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="20dp"
+        android:paddingLeft="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Nama"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvNamaLengkap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nama Lengkap"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Nomor KTP"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvNik"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="123123123"/>
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tempat Lahir"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvTempatLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="JKT" />
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tanggal Lahir"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvTanggalLahir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="10-10-10" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Jenis Kelamin"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvJenisKelamin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="L" />
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Status"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="Sudah" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Keperluan"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvKeperluan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="Perlu" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Detail Keperluan"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvDetKeperluan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="ABCDEF" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Status Layanan"
+            android:textSize="16sp"
+            android:paddingLeft="4dp"/>
+
+        <TextView
+            android:id="@+id/tvStatusLayanan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:textSize="20sp"
+            android:text="OK" />
+
+        <Button
+            android:id="@+id/btnChangeStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/gradient2"
+            android:drawableLeft="@mipmap/ic_save_white_24dp"
+            android:drawablePadding="-40dp"
+            android:paddingLeft="20dp"
+            android:text="Selesai"
+            android:textColor="@android:color/white"
+            android:textSize="18sp" />
+
+
+    </LinearLayout>
+
+
+</ScrollView>
