@@ -124,6 +124,8 @@ public class MenuActivity extends AppCompatActivity implements NavigationView.On
 
         if(id == R.id.navLogout){
             userLogout();
+        }else if(id == R.id.navAccount){
+            startActivity(new Intent(MenuActivity.this,ProfileActivity.class));
         }
 
         return false;

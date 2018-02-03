@@ -57,6 +57,15 @@
 
         <activity android:name=".LayananDetailActivity">
         </activity>
+
+        <activity android:name=".ProfileActivity">
+        </activity>
+
+        <activity android:name=".ChangePasswordActivity">
+        </activity>
+
+        <activity android:name=".ChangeProfileActivity">
+        </activity>
     </application>
 
 </manifest>

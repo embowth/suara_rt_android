@@ -83,5 +83,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void updatePassword(String password){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE "+ TABLE_NAME + " SET password='"+ password +"'";
+        Log.d(TAG,"update query :" + query);
+        db.execSQL(query);
+    }
+
 
 }

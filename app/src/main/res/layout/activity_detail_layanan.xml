@@ -28,7 +28,7 @@
             android:textSize="20sp"/>
 
         <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/profileTglLahir"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -62,7 +62,7 @@
             android:text="JKT" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/profileRw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -113,7 +113,7 @@
             android:text="Sudah" />
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/profileRt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -130,7 +130,7 @@
             android:text="Perlu" />
 
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/profileAlamat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
