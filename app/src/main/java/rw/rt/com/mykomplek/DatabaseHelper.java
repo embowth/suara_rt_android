@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL6 = "id_group";
     private static final String COL7 = "jenis_warga";
     private static final String COL8 = "password";
+    private static final String COL9 = "tanggal_lahir";
+    private static final String COL10 = "jenis_kelamin";
 
     public DatabaseHelper(Context context) {
         super(context, TABLE_NAME, null, 1);
@@ -33,13 +35,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " ("+ ID +" INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL1 +" INTEGER, " + COL2 +" TEXT, "+ COL3 +" INTEGER, "+ COL4 +" INTEGER, "+ COL5 +" TEXT, "+
-                COL6 +" INTEGER, "+ COL7 +" INTEGER, "+ COL8 +" TEXT)";
+                COL6 +" INTEGER, "+ COL7 +" INTEGER, "+ COL8 +" TEXT, "+ COL9 +" TEXT, "+ COL10 +" TEXT)";
         db.execSQL(createTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        db.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
@@ -55,6 +57,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL6, item[6]);
         contentValues.put(COL7, item[7]);
         contentValues.put(COL8, item[8]);
+        contentValues.put(COL9, item[9]);
+        contentValues.put(COL10, item[10]);
 
         Log.d(TAG, "addData: Adding " + item + " to " + TABLE_NAME);
 
@@ -90,5 +94,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    public void updateProfil(String nama, String tanggal_lahir, String jenis_kelamin){
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "UPDATE "+ TABLE_NAME + " SET nama='"+ nama +"', tanggal_lahir='"+tanggal_lahir+"', jenis_kelamin='"+jenis_kelamin+"'";
+        Log.d(TAG,"update query :" + query);
+        db.execSQL(query);
+    }
 
 }

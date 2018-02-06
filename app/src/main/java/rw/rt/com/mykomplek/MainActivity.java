@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                                 JSONArray jsonUser = jsonObject.getJSONArray("user");
                                 JSONObject objUser = jsonUser.getJSONObject(0);
                                 //Log.d("json", jObj.getString("email_user"));
-                                String[] userData = new String[9];
+                                String[] userData = new String[11];
                                 userData[0] = new String("1");
                                 userData[1] = new String(objUser.getString("id_user"));
                                 userData[2] = new String(objUser.getString("email_user"));
@@ -143,6 +143,8 @@ public class MainActivity extends AppCompatActivity {
                                 userData[6] = new String(objUser.getString("id_group"));
                                 userData[7] = new String(objUser.getString("jenis_warga"));
                                 userData[8] = new String(pPassword);
+                                userData[9] = new String(objUser.getString("tanggal_lahir"));
+                                userData[10] = new String(objUser.getString("jenis_kelamin"));
 
                                 CleanData();
                                 AddData(userData);
