@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp">
+
+    <ImageView
+        android:id="@+id/imgKandidat"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:srcCompat="@mipmap/ic_add_a_photo_black_24dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nama"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtNamaKandidat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Visi"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtVisi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="21sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Misi"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/txtMisi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:text="TextView"
+        android:textColor="@android:color/black"
+        android:textSize="21sp" />
+
+    <Button
+        android:id="@+id/btnPilih"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/txtPasswordBaru2"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="34dp"
+        android:background="@drawable/gradient2"
+        android:drawableLeft="@mipmap/ic_save_white_24dp"
+        android:drawablePadding="-40dp"
+        android:paddingLeft="20dp"
+        android:text="Pilih"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+</LinearLayout>

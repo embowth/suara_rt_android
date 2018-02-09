@@ -66,6 +66,9 @@
 
         <activity android:name=".ChangeProfileActivity">
         </activity>
+
+        <activity android:name=".PemilihanDetailActivity">
+        </activity>
     </application>
 
 </manifest>

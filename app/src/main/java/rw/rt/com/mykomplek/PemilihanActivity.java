@@ -112,8 +112,8 @@ public class PemilihanActivity extends AppCompatActivity {
                                     @Override
                                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                         //do something..
-                                        Intent i = new Intent(PemilihanActivity.this, LayananDetailActivity.class);
-                                        i.putExtra("id_layanan", view.getTag().toString());
+                                        Intent i = new Intent(PemilihanActivity.this, PemilihanDetailActivity.class);
+                                        i.putExtra("id_sesi", view.getTag().toString());
                                         startActivity(i);
                                     }
                                 });
