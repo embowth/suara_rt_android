@@ -116,7 +116,7 @@ public class PemilihanDetailActivity extends AppCompatActivity {
                                     mDataDetailPemilihan.add(new ItemListKandidat(Integer.parseInt(objData.getString("id_kandidat_pemilihan")), objData.getString("image"), objData.getString("nama"),objData.getString("visi"),objData.getString("misi")));
                                 }
 
-                                adapter = new DetailPemilihanAdapter(PemilihanDetailActivity.this, mDataDetailPemilihan);
+                                adapter = new DetailPemilihanAdapter(PemilihanDetailActivity.this, mDataDetailPemilihan,id_sesi);
                                 lvDetailPemilihan.setAdapter(adapter);
 
 
