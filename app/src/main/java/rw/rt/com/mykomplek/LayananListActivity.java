@@ -152,13 +152,15 @@ public class LayananListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.request_layanan_menu, menu);
+
+        if(jenisWarga.equals("0")) {
+            getMenuInflater().inflate(R.menu.request_layanan_menu, menu);
+        }
         return true;
     }
 
     @Override
     protected void onResume() {
-
         super.onResume();
         getListDataLayanan();
     }
