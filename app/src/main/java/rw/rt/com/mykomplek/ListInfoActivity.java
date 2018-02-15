@@ -43,7 +43,7 @@ public class ListInfoActivity extends AppCompatActivity {
     DatabaseHelper mDatabaseHelper;
     AQuery aq;
 
-    String pKategori,pGroup;
+    String pKategori,pGroup,page;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -60,13 +60,20 @@ public class ListInfoActivity extends AppCompatActivity {
             if(extras == null) {
                 extraCategory= "";
                 extraNamaCategory = "";
+                page="";
             } else {
                 extraCategory= extras.getString("category");
                 extraNamaCategory= extras.getString("nama_category");
+                page= extras.getString("page");
             }
         } else {
             extraCategory= (String) savedInstanceState.getSerializable("category");
             extraNamaCategory= (String) savedInstanceState.getSerializable("nama_category");
+            page= (String) savedInstanceState.getSerializable("page");
+        }
+
+        if(page.equalsIgnoreCase("archive")){
+            getSupportActionBar().setTitle("Arsip Informasi Warga");
         }
 
         kategori = (TextView)findViewById(R.id.txtKategori);
@@ -90,6 +97,7 @@ public class ListInfoActivity extends AppCompatActivity {
         Map<String, String> param = new HashMap<>();
         param.put("group", this.pGroup);
         param.put("category",this.extraCategory);
+        param.put("page",page);
 
         ProgressDialog pdialog = new ProgressDialog(getApplicationContext());
         pdialog.setCancelable(true);
@@ -132,6 +140,7 @@ public class ListInfoActivity extends AppCompatActivity {
                                     //do something..
                                     Intent i = new Intent(ListInfoActivity.this,DetailInfoActivity.class);
                                     i.putExtra("thread_id",view.getTag().toString());
+                                    i.putExtra("page",page);
                                     startActivity(i);
                                 }
                             });
@@ -169,7 +178,9 @@ public class ListInfoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_thread_menu, menu);
+        if(!page.equalsIgnoreCase("archive")) {
+            getMenuInflater().inflate(R.menu.add_thread_menu, menu);
+        }
         return true;
     }
 

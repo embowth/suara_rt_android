@@ -72,6 +72,9 @@
 
         <activity android:name=".TotalSuaraActivity">
         </activity>
+
+        <activity android:name=".InfoArsipActivity">
+        </activity>
     </application>
 
 </manifest>

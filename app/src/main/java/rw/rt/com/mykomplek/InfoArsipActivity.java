@@ -1,14 +1,11 @@
 package rw.rt.com.mykomplek;
 
-import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -27,7 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DaruratActivity extends AppCompatActivity {
+/**
+ * Created by embowth on 16/02/2018.
+ */
+
+public class InfoArsipActivity extends AppCompatActivity{
 
     AQuery aq;
 
@@ -38,37 +39,39 @@ public class DaruratActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate( Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_darurat);
 
-        getSupportActionBar().setTitle("Nomor Darurat");
-        getSupportActionBar().setTitle("Informasi Warga");
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_info);
+
+        getSupportActionBar().setTitle("Arsip Informasi Warga");
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_chevron_left_white_24dp);
 
-        linLayout= (LinearLayout) findViewById(R.id.daruratLinearLayout);
+        linLayout = (LinearLayout) findViewById(R.id.infoLinearLayout);
 
-        mDatabaseHelper = new DatabaseHelper(this);
-        Cursor data = mDatabaseHelper.getData();
-        data.moveToFirst();
-        if(data.getCount() > 0){
-            getDarurat(data.getString(data.getColumnIndex("id_group")));
+
+
+        try {
+            getInfo();
+        }catch (Exception e){
+            Log.d("error:",e.toString());
         }
 
     }
 
-    private void getDarurat(String pGroup) {
-        String url = HeroHelper.BASE_URL + "get_nomor_darurat.php";
+    private void getInfo() {
+        String url = HeroHelper.BASE_URL + "get_info_category.php";
 
         Map<String, String> param = new HashMap<>();
-        param.put(HeroHelper.ID_GROUP, pGroup);
+        param.put("parent_category", "0");
 
-        ProgressDialog pdialog = new ProgressDialog(DaruratActivity.this);
+
+        ProgressDialog pdialog = new ProgressDialog(InfoArsipActivity.this);
         pdialog.setCancelable(true);
         pdialog.setMessage("Loading . . .");
 
-        aq = new AQuery(DaruratActivity.this);
+        aq = new AQuery(InfoArsipActivity.this);
 
         aq.progress(pdialog).ajax(url, param, String.class, new AjaxCallback<String>() {
             @Override
@@ -84,43 +87,42 @@ public class DaruratActivity extends AppCompatActivity {
                         String pesan = jsonObject.getString("message");
                         if (result.equalsIgnoreCase("true")){
 
-                            JSONArray jsonData = jsonObject.getJSONArray("emergency");
+                            JSONArray jsonData = jsonObject.getJSONArray("info_cat");
                             JSONObject objData;
 
                             ArrayList<Button> listButtons = new ArrayList<>();
                             int drawId;
-                            Drawable top;
+                            Drawable icon_btn;
                             String ic;
                             for(int i=0;i < jsonData.length();i++){
                                 objData = jsonData.getJSONObject(i);
-                                final String telp = objData.getString("telp");
-                                Button button = new Button(DaruratActivity.this);
+                                Button button = new Button(InfoArsipActivity.this);
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
-                                params.topMargin = 30;
+                                params.topMargin = 35;
+                                params.leftMargin= 70;
+                                params.rightMargin= 70;
+                                button.setPadding(50,25,50,25);
                                 button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                                button.setText(objData.getString("nama_kontak") + " : " + objData.getString("telp"));
+                                button.setText(objData.getString("nama_category"));
 
                                 ic = objData.getString("icon");
                                 System.out.println(ic);
                                 if(!ic.equals("null")) {
                                     drawId = getResources().getIdentifier(objData.getString("icon"), "mipmap", getPackageName());
-                                    top = getResources().getDrawable(drawId);
-                                    button.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
+                                    icon_btn = getResources().getDrawable(drawId);
+                                    button.setCompoundDrawablesWithIntrinsicBounds(icon_btn, null, null, null);
                                 }
 
+                                final String category = objData.getString("id_category");
+                                final String nama_category = objData.getString("nama_category");
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                                        //Intent callIntent = new Intent(Intent.ACTION_DEFAULT);
-                                        //Intent callIntent = new Intent(Intent.ACTION_SEND);
-                                        callIntent.setData(Uri.parse("tel:" + telp ));
-                                        Intent chooser = Intent.createChooser(callIntent, "Pilih");
-                                        //startActivity(callIntent);
-
-                                        if (callIntent.resolveActivity(getPackageManager()) != null) {
-                                            startActivity(chooser);
-                                        }
+                                        Intent i = new Intent(InfoArsipActivity.this,ListInfoActivity.class);
+                                        i.putExtra("category", category);
+                                        i.putExtra("nama_category", nama_category);
+                                        i.putExtra("page","archive");
+                                        startActivity(i);
                                     }
                                 });
 
@@ -146,7 +148,8 @@ public class DaruratActivity extends AppCompatActivity {
 
     public boolean onOptionsItemSelected(MenuItem item){
         finish();
-        return true;
+        return super.onOptionsItemSelected(item);
+
     }
 
     @Override

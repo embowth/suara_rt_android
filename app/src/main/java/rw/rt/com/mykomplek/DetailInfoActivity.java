@@ -36,7 +36,7 @@ public class DetailInfoActivity extends AppCompatActivity {
     private InformasiDetailAdapter adapter;
     private List<ItemDetailInformasi> mDetailItem;
 
-    String id_thread;
+    String id_thread,page;
 
     AQuery aq;
 
@@ -58,11 +58,14 @@ public class DetailInfoActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             if(extras == null) {
                 id_thread= "";
+                page = "";
             } else {
                 id_thread= extras.getString("thread_id");
+                page = extras.getString("page");
             }
         } else {
             id_thread = (String) savedInstanceState.getSerializable("thread_id");
+            page = (String) savedInstanceState.getSerializable("page");
         }
 
         getListDetail();
@@ -151,7 +154,10 @@ public class DetailInfoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.reply_thread_menu, menu);
+        if(!page.equalsIgnoreCase("archive")){
+            getMenuInflater().inflate(R.menu.reply_thread_menu, menu);
+        }
+
         return true;
     }
 

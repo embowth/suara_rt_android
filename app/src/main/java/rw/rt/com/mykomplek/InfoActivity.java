@@ -123,6 +123,7 @@ public class InfoActivity extends AppCompatActivity {
                                         Intent i = new Intent(InfoActivity.this,ListInfoActivity.class);
                                         i.putExtra("category", category);
                                         i.putExtra("nama_category", nama_category);
+                                        i.putExtra("page","");
                                         startActivity(i);
                                     }
                                 });
@@ -148,9 +149,25 @@ public class InfoActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        finish();
+        int id = item.getItemId();
+
+        if(id == R.id.navArsip){
+            Intent i = new Intent(InfoActivity.this,InfoArsipActivity.class);
+            startActivity(i);
+        }else{
+            finish();
+        }
         return super.onOptionsItemSelected(item);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        getMenuInflater().inflate(R.menu.archive_menu, menu);
+
+        return true;
     }
 
     @Override
