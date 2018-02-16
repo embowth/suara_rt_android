@@ -3,6 +3,8 @@ package rw.rt.com.mykomplek;
 import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -25,6 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class DaruratActivity extends AppCompatActivity {
@@ -111,16 +114,29 @@ public class DaruratActivity extends AppCompatActivity {
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                        //Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                        Intent callIntent = new Intent(Intent.ACTION_VIEW);
                                         //Intent callIntent = new Intent(Intent.ACTION_DEFAULT);
-                                        //Intent callIntent = new Intent(Intent.ACTION_SEND);
-                                        callIntent.setData(Uri.parse("tel:" + telp ));
-                                        Intent chooser = Intent.createChooser(callIntent, "Pilih");
-                                        //startActivity(callIntent);
+                                        //Intent callIntent = new Intent(Intent.ACTION_SENDTO);
+                                        callIntent.setData(Uri.parse("tel:"+telp));
+                                        callIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                        callIntent.setType("text/plain");
+                                        //callIntent.setPackage("com.whatsapp");
+
+                                        PackageManager packageManager = getPackageManager();
+                                        List<ResolveInfo> activities = packageManager.queryIntentActivities(callIntent, 0);
+                                        boolean isIntentSafe = activities.size() > 0;
+
+                                        if (isIntentSafe) {
+                                            startActivity(callIntent);
+                                        }
+
+                                        /*Intent chooser = Intent.createChooser(callIntent, "Pilih");
+                                        startActivity(callIntent);
 
                                         if (callIntent.resolveActivity(getPackageManager()) != null) {
                                             startActivity(chooser);
-                                        }
+                                        }*/
                                     }
                                 });
 
