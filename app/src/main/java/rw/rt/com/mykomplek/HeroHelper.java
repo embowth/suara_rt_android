@@ -10,8 +10,8 @@ import java.util.regex.Pattern;
 
 public class HeroHelper {
     private static final int DEBUG = 1;
-    public static final String BASE_URL = "http://192.168.0.31/suara_rt/android/";  // ini IP laptop saya
-    public static final String BASE_URL_IMG = "http://192.168.0.31/suara_rt/";  // ini IP laptop saya
+    public static final String BASE_URL = "http://192.168.0.26/suara_rt/android/";  // ini IP laptop saya
+    public static final String BASE_URL_IMG = "http://192.168.0.26/suara_rt/";  // ini IP laptop saya
 
     public static final String EMAIL_USER = "email";
     public static final String PASSWORD_USER = "password";

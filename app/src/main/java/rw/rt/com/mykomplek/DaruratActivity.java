@@ -1,7 +1,9 @@
 package rw.rt.com.mykomplek;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -52,6 +54,9 @@ public class DaruratActivity extends AppCompatActivity {
 
         linLayout= (LinearLayout) findViewById(R.id.daruratLinearLayout);
 
+        ;
+
+
         mDatabaseHelper = new DatabaseHelper(this);
         Cursor data = mDatabaseHelper.getData();
         data.moveToFirst();
@@ -64,7 +69,7 @@ public class DaruratActivity extends AppCompatActivity {
     private void getDarurat(String pGroup) {
         String url = HeroHelper.BASE_URL + "get_nomor_darurat.php";
 
-        Map<String, String> param = new HashMap<>();
+        final Map<String, String> param = new HashMap<>();
         param.put(HeroHelper.ID_GROUP, pGroup);
 
         ProgressDialog pdialog = new ProgressDialog(DaruratActivity.this);
@@ -100,6 +105,8 @@ public class DaruratActivity extends AppCompatActivity {
                                 Button button = new Button(DaruratActivity.this);
                                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT);
                                 params.topMargin = 30;
+                                params.leftMargin = 20;
+                                params.rightMargin = 20;
                                 button.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
                                 button.setText(objData.getString("nama_kontak") + " : " + objData.getString("telp"));
 
@@ -111,32 +118,43 @@ public class DaruratActivity extends AppCompatActivity {
                                     button.setCompoundDrawablesWithIntrinsicBounds(null, top, null, null);
                                 }
 
+                                final AlertDialog.Builder alertDialog = new AlertDialog.Builder(DaruratActivity.this);
+                                CharSequence charSequence[] = new CharSequence[] {"Telepon", "Pesan"};
+                                alertDialog.setNegativeButton("Cancel", null);
+                                alertDialog.setTitle("Pilih Aksi");
+
+                                alertDialog.setSingleChoiceItems(charSequence, -1, new DialogInterface.OnClickListener() {
+
+                                    @Override
+                                    public void onClick(DialogInterface d, int n) {
+
+                                        if(n==0){
+                                            Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                                            callIntent.setData(Uri.parse("tel:"+telp));
+                                            startActivity(callIntent);
+                                        }else{
+                                            Intent callIntent = new Intent(Intent.ACTION_DEFAULT);
+                                            callIntent.setData(Uri.parse("smsto:"+telp));
+                                            PackageManager packageManager = getPackageManager();
+                                            List<ResolveInfo> activities = packageManager.queryIntentActivities(callIntent, 0);
+                                            boolean isIntentSafe = activities.size() > 0;
+
+                                            if (isIntentSafe) {
+                                                startActivity(callIntent);
+                                            }
+
+                                        }
+
+                                    }
+
+                                });
+
                                 button.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
-                                        //Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                                        Intent callIntent = new Intent(Intent.ACTION_VIEW);
-                                        //Intent callIntent = new Intent(Intent.ACTION_DEFAULT);
-                                        //Intent callIntent = new Intent(Intent.ACTION_SENDTO);
-                                        callIntent.setData(Uri.parse("tel:"+telp));
-                                        callIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                                        callIntent.setType("text/plain");
-                                        //callIntent.setPackage("com.whatsapp");
 
-                                        PackageManager packageManager = getPackageManager();
-                                        List<ResolveInfo> activities = packageManager.queryIntentActivities(callIntent, 0);
-                                        boolean isIntentSafe = activities.size() > 0;
+                                        alertDialog.show();
 
-                                        if (isIntentSafe) {
-                                            startActivity(callIntent);
-                                        }
-
-                                        /*Intent chooser = Intent.createChooser(callIntent, "Pilih");
-                                        startActivity(callIntent);
-
-                                        if (callIntent.resolveActivity(getPackageManager()) != null) {
-                                            startActivity(chooser);
-                                        }*/
                                     }
                                 });
 
