@@ -40,6 +40,7 @@ public class PemilihanActivity extends AppCompatActivity {
 
     TextView alertPemilihan;
 
+    MenuItem navHasil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,7 @@ public class PemilihanActivity extends AppCompatActivity {
                             JSONObject objData;
 
                             if(jsonData.length()>0) {
+                                navHasil.setVisible(false);
                                 for (int i = 0; i < jsonData.length(); i++) {
                                     objData = jsonData.getJSONObject(i);
                                     mDataPemilihan.add(new ItemPemilihan(Integer.parseInt(objData.getString("id_sesi_pemilihan")), objData.getString("periode_pemilihan"), objData.getString("tanggal")));
@@ -118,7 +120,7 @@ public class PemilihanActivity extends AppCompatActivity {
                                     }
                                 });
                             }else{
-
+                                navHasil.setVisible(true);
                                 alertPemilihan = (TextView)findViewById(R.id.txtPemilihanNotFound);
                                 lvPemilihan = (ListView)findViewById(R.id.lvPemilihan);
 
@@ -141,9 +143,27 @@ public class PemilihanActivity extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item){
-        finish();
-        return true;
+        int id = item.getItemId();
 
+        if(id == R.id.navHasilPemilihan){
+            Intent i = new Intent(PemilihanActivity.this,TotalSuaraActivity.class);
+            i.putExtra("id_sesi","x");
+            startActivity(i);
+        }else{
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+
+        getMenuInflater().inflate(R.menu.pemilihan_menu, menu);
+        navHasil = menu.findItem(R.id.navHasilPemilihan);
+
+        return true;
     }
 
     @Override

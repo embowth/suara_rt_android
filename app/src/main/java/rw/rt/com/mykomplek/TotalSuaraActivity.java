@@ -39,6 +39,8 @@ public class TotalSuaraActivity extends AppCompatActivity {
     private TotalSuaraAdapter adapter;
     private List<ItemTotalSuara> mTotalSuara;
 
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
