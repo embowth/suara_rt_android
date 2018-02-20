@@ -42,6 +42,8 @@ public class PemilihanActivity extends AppCompatActivity {
 
     MenuItem navHasil;
 
+    Boolean menust;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +64,7 @@ public class PemilihanActivity extends AppCompatActivity {
             idGroup = data.getString(data.getColumnIndex("id_group"));
         }
 
+        invalidateOptionsMenu();
         getListPemilihan();
 
     }
@@ -101,7 +104,9 @@ public class PemilihanActivity extends AppCompatActivity {
                             JSONObject objData;
 
                             if(jsonData.length()>0) {
-                                navHasil.setVisible(false);
+
+                                menust =false;
+
                                 for (int i = 0; i < jsonData.length(); i++) {
                                     objData = jsonData.getJSONObject(i);
                                     mDataPemilihan.add(new ItemPemilihan(Integer.parseInt(objData.getString("id_sesi_pemilihan")), objData.getString("periode_pemilihan"), objData.getString("tanggal")));
@@ -120,7 +125,9 @@ public class PemilihanActivity extends AppCompatActivity {
                                     }
                                 });
                             }else{
-                                navHasil.setVisible(true);
+
+                                menust = true;
+
                                 alertPemilihan = (TextView)findViewById(R.id.txtPemilihanNotFound);
                                 lvPemilihan = (ListView)findViewById(R.id.lvPemilihan);
 
@@ -161,8 +168,9 @@ public class PemilihanActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
 
         getMenuInflater().inflate(R.menu.pemilihan_menu, menu);
+        invalidateOptionsMenu();
         navHasil = menu.findItem(R.id.navHasilPemilihan);
-
+        navHasil.setVisible(menust);
         return true;
     }
 
@@ -170,6 +178,7 @@ public class PemilihanActivity extends AppCompatActivity {
     protected void onResume() {
 
         super.onResume();
+        invalidateOptionsMenu();
         getListPemilihan();
     }
 

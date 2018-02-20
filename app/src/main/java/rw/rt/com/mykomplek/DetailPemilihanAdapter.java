@@ -99,7 +99,7 @@ public class DetailPemilihanAdapter extends BaseAdapter {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         String task = String.valueOf(taskEditText.getText());
-                        sendVote(task,String.valueOf(mList.get(position-1).getId()));
+                        sendVote(task,String.valueOf(mList.get(position).getId()));
                     }
                 })
                 .setNegativeButton("Cancel", null)
